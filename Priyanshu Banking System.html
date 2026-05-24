@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)file:///Users/priyanshujha/Downloads/priyanshu_banking.html#features -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priyanshu Banking System</title>
+<link href="./Priyanshu Banking System_files/css2" rel="stylesheet">
+<style>
+  :root {
+    --navy:    #03122F;
+    --deep:    #071A45;
+    --card:    #0A2156;
+    --gold:    #C9A84C;
+    --gold2:   #F0CC6E;
+    --teal:    #00D4AA;
+    --red:     #E84560;
+    --text:    #E8F0FF;
+    --muted:   #7A99CC;
+    --border:  #132A5E;
+    --white:   #FFFFFF;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+  /* ── KEYFRAMES ── */
+  @keyframes fadeUp   { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+  @keyframes float    { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
+  @keyframes shimmer  { 0% { background-position:-400px 0; } 100% { background-position:400px 0; } }
+  @keyframes spin     { to { transform:rotate(360deg); } }
+  @keyframes pulse    { 0%,100% { opacity:1; } 50% { opacity:.5; } }
+  @keyframes countUp  { from { opacity:0; } to { opacity:1; } }
+  @keyframes slideIn  { from { transform:translateX(-60px); opacity:0; } to { transform:translateX(0); opacity:1; } }
+  @keyframes glow     { 0%,100%{ box-shadow:0 0 20px rgba(201,168,76,.3);} 50%{box-shadow:0 0 40px rgba(201,168,76,.7);} }
+
+  /* ══ NAV ══════════════════════════════════════════════════ */
+  nav {
+    position: fixed; top:0; width:100%; z-index:999;
+    background: rgba(3,18,47,.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex; align-items:center; justify-content:space-between;
+    height: 68px;
+    animation: fadeIn .6s ease;
+  }
+  .nav-logo {
+    display:flex; align-items:center; gap:12px;
+  }
+  .nav-logo .logo-icon {
+    width:40px; height:40px; background: linear-gradient(135deg,var(--gold),var(--gold2));
+    border-radius:10px; display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+  }
+  .nav-logo span {
+    font-family:'Playfair Display',serif;
+    font-size:1.2rem; font-weight:700; color:var(--white);
+    letter-spacing:.5px;
+  }
+  .nav-logo span em { color:var(--gold); font-style:normal; }
+  .nav-links { display:flex; gap:32px; list-style:none; }
+  .nav-links a {
+    color:var(--muted); text-decoration:none; font-size:.9rem; font-weight:500;
+    transition:color .2s;
+  }
+  .nav-links a:hover { color:var(--gold2); }
+  .nav-cta {
+    background:var(--gold);
+    color:var(--navy);
+    padding:8px 22px; border-radius:8px;
+    font-weight:600; font-size:.9rem;
+    text-decoration:none; cursor:pointer;
+    border:none;
+    transition:background .2s, transform .15s;
+  }
+  .nav-cta:hover { background:var(--gold2); transform:translateY(-1px); }
+
+  /* ══ HERO ══════════════════════════════════════════════════ */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items:center;
+    padding: 100px 5% 60px;
+    position:relative; overflow:hidden;
+  }
+
+  /* Animated mesh background */
+  .hero::before {
+    content:'';
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,168,76,.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 80% at 10% 80%, rgba(0,212,170,.08) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 90% 90%, rgba(3,18,47,1) 0%, transparent 70%);
+  }
+
+  /* Grid lines */
+  .hero::after {
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(201,168,76,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events:none;
+  }
+
+  .hero-content { position:relative; z-index:2; max-width:580px; }
+
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(201,168,76,.1); border:1px solid rgba(201,168,76,.3);
+    color:var(--gold2); padding:6px 16px; border-radius:100px;
+    font-size:.82rem; font-weight:500; margin-bottom:24px;
+    animation: fadeUp .6s ease .1s both;
+  }
+  .hero-badge .dot { width:7px; height:7px; border-radius:50%; background:var(--gold); animation:pulse 2s infinite; }
+
+  .hero h1 {
+    font-family:'Playfair Display',serif;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    font-weight:900; line-height:1.12;
+    color:var(--white);
+    animation: fadeUp .6s ease .2s both;
+    margin-bottom:10px;
+  }
+  .hero h1 span { color:var(--gold); }
+
+  .hero-sub {
+    font-size:1.05rem; color:var(--muted); line-height:1.7;
+    margin:18px 0 36px;
+    animation: fadeUp .6s ease .3s both;
+  }
+
+  .hero-btns {
+    display:flex; gap:14px; flex-wrap:wrap;
+    animation: fadeUp .6s ease .4s both;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg,var(--gold),var(--gold2));
+    color:var(--navy); padding:14px 30px; border-radius:10px;
+    font-weight:700; font-size:1rem; cursor:pointer;
+    border:none; text-decoration:none;
+    transition:transform .2s, box-shadow .2s;
+    animation:glow 3s infinite;
+  }
+  .btn-primary:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(201,168,76,.4); }
+
+  .btn-outline {
+    background:transparent;
+    border:1.5px solid var(--border);
+    color:var(--text); padding:14px 30px; border-radius:10px;
+    font-weight:500; font-size:1rem; cursor:pointer;
+    text-decoration:none;
+    transition:border-color .2s, color .2s;
+  }
+  .btn-outline:hover { border-color:var(--gold); color:var(--gold2); }
+
+  /* Hero visual — floating card */
+  .hero-visual {
+    position:absolute; right:5%; top:50%; transform:translateY(-50%);
+    width:min(400px,42vw);
+    animation: fadeIn .8s ease .5s both;
+    z-index:2;
+  }
+
+  .bank-card {
+    background: linear-gradient(135deg, #0D2B6B 0%, #071A45 60%, #0A3060 100%);
+    border:1px solid rgba(201,168,76,.25);
+    border-radius:22px; padding:32px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(201,168,76,.08);
+    animation: float 5s ease-in-out infinite;
+  }
+  .card-chip {
+    width:44px; height:34px;
+    background: linear-gradient(135deg,var(--gold),#a07830);
+    border-radius:6px; margin-bottom:28px;
+    position:relative; overflow:hidden;
+  }
+  .card-chip::after {
+    content:''; position:absolute; inset:0;
+    background:repeating-linear-gradient(90deg,transparent,transparent 8px,rgba(0,0,0,.15) 8px,rgba(0,0,0,.15) 9px);
+  }
+  .card-balance-label { font-size:.75rem; color:rgba(255,255,255,.5); letter-spacing:1px; text-transform:uppercase; }
+  .card-balance { font-family:'Playfair Display',serif; font-size:2rem; color:var(--white); margin:4px 0 24px; }
+  .card-number { font-size:.95rem; color:rgba(255,255,255,.6); letter-spacing:3px; margin-bottom:20px; }
+  .card-footer { display:flex; justify-content:space-between; align-items:flex-end; }
+  .card-name { font-size:.85rem; color:var(--gold2); font-weight:600; letter-spacing:1.5px; text-transform:uppercase; }
+  .card-logo { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--gold); font-weight:700; }
+
+  /* Floating stats */
+  .stat-bubble {
+    position:absolute; background:rgba(10,33,86,.95);
+    border:1px solid var(--border);
+    border-radius:14px; padding:12px 18px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 8px 30px rgba(0,0,0,.4);
+  }
+  .stat-bubble.sb1 { top:-30px; right:-20px; animation:float 4s ease-in-out infinite .5s; }
+  .stat-bubble.sb2 { bottom:-20px; left:-30px; animation:float 4.5s ease-in-out infinite 1s; }
+  .sb-val { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--teal); font-weight:700; }
+  .sb-lbl { font-size:.72rem; color:var(--muted); margin-top:2px; }
+
+  /* ══ STATS BAND ══════════════════════════════════════════════ */
+  .stats-band {
+    background:var(--deep);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:40px 5%;
+    display:grid; grid-template-columns:repeat(4,1fr);
+    gap:24px; text-align:center;
+  }
+  .stat-item { animation: fadeUp .6s ease both; }
+  .stat-item:nth-child(2) { animation-delay:.1s; }
+  .stat-item:nth-child(3) { animation-delay:.2s; }
+  .stat-item:nth-child(4) { animation-delay:.3s; }
+  .stat-num { font-family:'Playfair Display',serif; font-size:2.2rem; color:var(--gold2); font-weight:700; }
+  .stat-desc { font-size:.82rem; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:.5px; }
+
+  /* ══ SECTIONS ══════════════════════════════════════════════ */
+  section { padding:90px 5%; }
+  .section-tag {
+    display:inline-block; background:rgba(201,168,76,.08);
+    border:1px solid rgba(201,168,76,.2); color:var(--gold);
+    padding:4px 14px; border-radius:100px;
+    font-size:.78rem; font-weight:600; letter-spacing:1.5px;
+    text-transform:uppercase; margin-bottom:14px;
+  }
+  .section-title {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.8rem,3vw,2.6rem); font-weight:700;
+    color:var(--white); margin-bottom:14px; line-height:1.25;
+  }
+  .section-title span { color:var(--gold); }
+  .section-sub { color:var(--muted); font-size:.97rem; line-height:1.7; max-width:520px; }
+
+  /* ══ FEATURES ══════════════════════════════════════════════ */
+  .features-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:24px; margin-top:56px;
+  }
+  .feat-card {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px; padding:32px;
+    transition:transform .25s, border-color .25s, box-shadow .25s;
+    position:relative; overflow:hidden;
+  }
+  .feat-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg,var(--gold),var(--gold2));
+    transform:scaleX(0); transform-origin:left;
+    transition:transform .3s;
+  }
+  .feat-card:hover { transform:translateY(-6px); border-color:rgba(201,168,76,.3); box-shadow:0 20px 50px rgba(0,0,0,.3); }
+  .feat-card:hover::before { transform:scaleX(1); }
+  .feat-icon {
+    width:54px; height:54px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:26px; margin-bottom:20px;
+  }
+  .feat-title { font-size:1.05rem; font-weight:600; color:var(--white); margin-bottom:10px; }
+  .feat-desc  { font-size:.88rem; color:var(--muted); line-height:1.7; }
+
+  /* ══ HOW IT WORKS ══════════════════════════════════════════ */
+  .how-section { background:var(--deep); }
+  .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:0; margin-top:56px; position:relative; }
+  .steps::before {
+    content:''; position:absolute; top:40px; left:10%; right:10%; height:2px;
+    background:linear-gradient(90deg,var(--border),var(--gold),var(--border));
+  }
+  .step {
+    text-align:center; padding:0 20px; position:relative;
+    animation: fadeUp .6s ease both;
+  }
+  .step:nth-child(2){animation-delay:.15s;}
+  .step:nth-child(3){animation-delay:.3s;}
+  .step:nth-child(4){animation-delay:.45s;}
+  .step-num {
+    width:80px; height:80px; border-radius:50%;
+    background:var(--card); border:2px solid var(--gold);
+    color:var(--gold2); font-family:'Playfair Display',serif;
+    font-size:1.6rem; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 24px; position:relative; z-index:1;
+    transition:background .25s;
+  }
+  .step:hover .step-num { background:rgba(201,168,76,.15); }
+  .step h3 { font-size:1rem; font-weight:600; color:var(--white); margin-bottom:8px; }
+  .step p  { font-size:.85rem; color:var(--muted); line-height:1.6; }
+
+  /* ══ TECH STACK ══════════════════════════════════════════════ */
+  .tech-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:16px; margin-top:50px;
+  }
+  .tech-pill {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:14px; padding:24px 16px; text-align:center;
+    transition:border-color .2s, transform .2s;
+  }
+  .tech-pill:hover { border-color:var(--gold); transform:scale(1.04); }
+  .tech-pill .t-icon { font-size:2.2rem; margin-bottom:10px; }
+  .tech-pill .t-name { font-weight:600; font-size:.9rem; color:var(--text); }
+  .tech-pill .t-role { font-size:.75rem; color:var(--muted); margin-top:3px; }
+
+  /* ══ CODE PREVIEW ══════════════════════════════════════════ */
+  .code-section {
+    background: var(--deep);
+  }
+  .code-split {
+    display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
+    margin-top:50px;
+  }
+  .code-block {
+    background:#050F22;
+    border:1px solid var(--border);
+    border-radius:16px; overflow:hidden;
+  }
+  .code-header {
+    background:#071428; padding:12px 18px;
+    display:flex; align-items:center; gap:8px;
+    border-bottom:1px solid var(--border);
+  }
+  .dot-r { width:12px;height:12px;border-radius:50%;background:#E84560; }
+  .dot-y { width:12px;height:12px;border-radius:50%;background:#FFD166; }
+  .dot-g { width:12px;height:12px;border-radius:50%;background:#00D4AA; }
+  .code-file { font-size:.78rem; color:var(--muted); margin-left:8px; }
+  .code-body {
+    padding:22px; font-family:'Courier New',monospace; font-size:.82rem;
+    line-height:1.9; color:#8BAABF; overflow-x:auto;
+  }
+  .kw  { color:#C792EA; }  /* keyword */
+  .fn  { color:#82AAFF; }  /* function */
+  .st  { color:#C3E88D; }  /* string */
+  .cm  { color:#546E7A; }  /* comment */
+  .nm  { color:#F78C6C; }  /* number */
+  .co-info { }
+  .co-info h3 { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--white); margin-bottom:16px; }
+  .co-info p  { color:var(--muted); line-height:1.75; margin-bottom:20px; font-size:.95rem; }
+  .co-list { list-style:none; }
+  .co-list li {
+    display:flex; align-items:center; gap:12px;
+    padding:10px 0; border-bottom:1px solid var(--border);
+    font-size:.9rem; color:var(--text);
+  }
+  .co-list li:last-child { border:none; }
+  .co-list .ck { color:var(--teal); font-size:1rem; }
+
+  /* ══ DEMO OUTPUT ══════════════════════════════════════════ */
+  .terminal {
+    background:#020C1B;
+    border:1px solid var(--border);
+    border-radius:16px; overflow:hidden; margin-top:50px;
+  }
+  .term-header {
+    background:#051024; padding:12px 20px;
+    display:flex; align-items:center; gap:8px;
+    border-bottom:1px solid var(--border);
+  }
+  .term-title { font-size:.78rem; color:var(--muted); margin-left:6px; flex:1; text-align:center; }
+  .term-body { padding:24px; font-family:'Courier New',monospace; font-size:.85rem; line-height:2; }
+  .t-white { color:#E8F0FF; }
+  .t-gold  { color:var(--gold2); }
+  .t-green { color:var(--teal); }
+  .t-red   { color:var(--red); }
+  .t-muted { color:var(--muted); }
+  .cursor  { display:inline-block; width:8px; height:14px; background:var(--teal); vertical-align:middle; animation:pulse 1s infinite; }
+
+  /* ══ ABOUT / PROJECT INFO ══════════════════════════════════ */
+  .about-split {
+    display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+    margin-top:50px;
+  }
+  .about-img {
+    position:relative;
+  }
+  .about-img-box {
+    background: linear-gradient(135deg,var(--card),var(--deep));
+    border:1px solid var(--border);
+    border-radius:22px; padding:40px;
+    text-align:center; position:relative; overflow:hidden;
+  }
+  .about-img-box::before {
+    content:''; position:absolute;
+    width:200px; height:200px; border-radius:50%;
+    background:radial-gradient(circle,rgba(201,168,76,.15),transparent);
+    top:-60px; right:-60px;
+  }
+  .big-icon { font-size:6rem; display:block; margin-bottom:20px; animation:float 4s ease-in-out infinite; }
+  .about-tags { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:16px; }
+  .tag {
+    background:rgba(201,168,76,.08); border:1px solid rgba(201,168,76,.2);
+    color:var(--gold2); padding:5px 14px; border-radius:100px; font-size:.78rem;
+  }
+  .about-info h3 { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--white); margin-bottom:16px; }
+  .about-info p { color:var(--muted); line-height:1.8; margin-bottom:16px; font-size:.93rem; }
+  .info-row { display:flex; gap:14px; align-items:flex-start; margin-bottom:14px; }
+  .info-row .ir-icon { font-size:1.2rem; margin-top:2px; flex-shrink:0; }
+  .info-row .ir-text { color:var(--muted); font-size:.88rem; line-height:1.6; }
+  .info-row .ir-text strong { color:var(--text); display:block; margin-bottom:2px; }
+
+  /* ══ FOOTER ══════════════════════════════════════════════ */
+  footer {
+    background:var(--deep);
+    border-top:1px solid var(--border);
+    padding:50px 5% 30px;
+  }
+  .footer-grid {
+    display:grid; grid-template-columns:2fr 1fr 1fr; gap:40px; margin-bottom:40px;
+  }
+  .footer-brand .logo-text { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--white); margin-bottom:12px; }
+  .footer-brand .logo-text em { color:var(--gold); font-style:normal; }
+  .footer-brand p { color:var(--muted); font-size:.85rem; line-height:1.7; max-width:300px; }
+  .footer-col h4 { color:var(--text); font-weight:600; margin-bottom:16px; font-size:.9rem; }
+  .footer-col ul { list-style:none; }
+  .footer-col ul li { margin-bottom:10px; }
+  .footer-col ul li a { color:var(--muted); text-decoration:none; font-size:.85rem; transition:color .2s; }
+  .footer-col ul li a:hover { color:var(--gold2); }
+  .footer-bottom {
+    border-top:1px solid var(--border); padding-top:24px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .footer-bottom p { color:var(--muted); font-size:.82rem; }
+  .footer-bottom .made { color:var(--gold); font-weight:600; }
+
+  /* ══ INTERACTIVE DEMO SECTION ═══════════════════════════════ */
+  .demo-section { background:var(--navy); }
+  .demo-container {
+    max-width:520px; margin:50px auto 0;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:22px; overflow:hidden;
+    box-shadow:0 40px 80px rgba(0,0,0,.5);
+  }
+  .demo-topbar {
+    background:var(--deep);
+    padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid var(--border);
+  }
+  .demo-topbar span { font-weight:600; color:var(--gold2); font-size:.95rem; }
+  .demo-bal { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--teal); }
+  .demo-body { padding:30px; }
+  .d-screen { display:none; }
+  .d-screen.active { display:block; animation:fadeIn .3s ease; }
+  .d-label { font-size:.8rem; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:1px; }
+  .d-input {
+    width:100%; background:rgba(3,18,47,.8);
+    border:1.5px solid var(--border); border-radius:10px;
+    color:var(--text); font-size:1.1rem; padding:12px 16px;
+    font-family:'DM Sans',sans-serif; outline:none;
+    transition:border-color .2s;
+  }
+  .d-input:focus { border-color:var(--gold); }
+  .d-btn {
+    width:100%; padding:13px; border-radius:10px;
+    font-weight:700; font-size:1rem; cursor:pointer;
+    border:none; margin-top:16px; transition:transform .15s, box-shadow .15s;
+  }
+  .d-btn:hover { transform:translateY(-2px); }
+  .d-btn-gold { background:linear-gradient(135deg,var(--gold),var(--gold2)); color:var(--navy); }
+  .d-btn-teal { background:var(--teal); color:var(--navy); }
+  .d-btn-red  { background:var(--red);  color:var(--white); }
+  .d-btn-out  {
+    background:transparent; border:1.5px solid var(--border);
+    color:var(--muted); margin-top:10px;
+  }
+  .d-btn-out:hover { border-color:var(--muted); color:var(--text); }
+  .d-msg { padding:12px 16px; border-radius:10px; font-size:.88rem; margin-top:12px; display:none; }
+  .d-msg.success { background:rgba(0,212,170,.1); border:1px solid rgba(0,212,170,.3); color:var(--teal); display:block; }
+  .d-msg.error   { background:rgba(232,69,96,.1);  border:1px solid rgba(232,69,96,.3);  color:var(--red);  display:block; }
+  .menu-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .menu-btn {
+    background:var(--deep); border:1px solid var(--border);
+    border-radius:12px; padding:18px; text-align:center;
+    cursor:pointer; transition:border-color .2s, transform .2s;
+  }
+  .menu-btn:hover { border-color:var(--gold); transform:scale(1.03); }
+  .menu-btn .mb-icon { font-size:1.8rem; margin-bottom:8px; }
+  .menu-btn .mb-txt  { font-size:.85rem; color:var(--text); font-weight:500; }
+  .bal-display {
+    background:linear-gradient(135deg,var(--deep),var(--navy));
+    border:1px solid var(--gold);
+    border-radius:14px; padding:24px; text-align:center; margin-bottom:16px;
+  }
+  .bal-display .bd-label { font-size:.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .bal-display .bd-amount { font-family:'Playfair Display',serif; font-size:2rem; color:var(--gold2); }
+
+  /* ══ RESPONSIVE ══════════════════════════════════════════ */
+  @media(max-width:900px) {
+    .hero-visual { display:none; }
+    .code-split, .about-split, .footer-grid { grid-template-columns:1fr; }
+    .steps::before { display:none; }
+    .stats-band { grid-template-columns:repeat(2,1fr); }
+  }
+  @media(max-width:600px) {
+    .nav-links { display:none; }
+    .stats-band { grid-template-columns:1fr 1fr; }
+    .menu-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-icon">🏦</div>
+    <span><em>Priyanshu</em> Banking</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#features">Features</a></li>
+    <li><a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#how">How It Works</a></li>
+    <li><a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#demo">Live Demo</a></li>
+    <li><a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#code">Code</a></li>
+    <li><a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#about">About</a></li>
+  </ul>
+  <a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#demo" class="nav-cta">Try Demo</a>
+</nav>
+
+<!-- ══ HERO ══════════════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Python Console + GUI Banking Project
+    </div>
+    <h1>Priyanshu<br><span>Banking System</span></h1>
+    <p class="hero-sub">
+      A fully functional, secure banking application built in Python — featuring PIN-based authentication, real-time transaction handling, Tkinter GUI, and robust error handling.
+    </p>
+    <div class="hero-btns">
+      <a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#demo" class="btn-primary">🚀 Try Live Demo</a>
+      <a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#features" class="btn-outline">Explore Features →</a>
+    </div>
+  </div>
+
+  <!-- Floating bank card -->
+  <div class="hero-visual">
+    <div style="position:relative;">
+      <div class="bank-card">
+        <div class="card-chip"></div>
+        <div class="card-balance-label">Available Balance</div>
+        <div class="card-balance">₹ 5,000.00</div>
+        <div class="card-number">•••• &nbsp;•••• &nbsp;•••• &nbsp;1234</div>
+        <div class="card-footer">
+          <div>
+            <div style="font-size:.65rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;">Card Holder</div>
+            <div class="card-name">Priyanshu</div>
+          </div>
+          <div class="card-logo">PBS</div>
+        </div>
+      </div>
+      <div class="stat-bubble sb1">
+        <div class="sb-val">✅ Secure</div>
+        <div class="sb-lbl">PIN Protected</div>
+      </div>
+      <div class="stat-bubble sb2">
+        <div class="sb-val">₹20K</div>
+        <div class="sb-lbl">Max withdrawal limit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS BAND ══════════════════════════════════════════════ -->
+<div class="stats-band">
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-desc">Python Built</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">5</div>
+    <div class="stat-desc">Core Features</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2</div>
+    <div class="stat-desc">Interfaces (CLI + GUI)</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">0</div>
+    <div class="stat-desc">External Libraries Needed</div>
+  </div>
+</div>
+
+<!-- ══ FEATURES ══════════════════════════════════════════════ -->
+<section id="features">
+  <div style="text-align:center;margin-bottom:10px;">
+    <div class="section-tag">Features</div>
+  </div>
+  <div style="text-align:center;">
+    <h2 class="section-title">Everything a Bank Needs, <span>In Python</span></h2>
+    <p class="section-sub" style="margin:0 auto;">Built with clean, readable code — perfect for academic project presentations and Python learners.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(201,168,76,.12);">🔐</div>
+      <div class="feat-title">PIN Authentication</div>
+      <div class="feat-desc">Secure 4-digit PIN system using Python's <code>getpass</code> module — password never shows on screen. Access denied on wrong PIN.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(0,212,170,.1);">💰</div>
+      <div class="feat-title">Check Balance</div>
+      <div class="feat-desc">Instantly view your current account balance formatted to 2 decimal places with ₹ symbol, after secure login.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(130,170,255,.1);">➕</div>
+      <div class="feat-title">Deposit Money</div>
+      <div class="feat-desc">Add funds to your account with full input validation — negative values and non-numeric inputs are rejected gracefully.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(232,69,96,.1);">💸</div>
+      <div class="feat-title">Withdraw Money</div>
+      <div class="feat-desc">Withdraw securely with dual checks — insufficient balance detection and ₹20,000 per-transaction limit enforcement.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(201,168,76,.12);">⚠️</div>
+      <div class="feat-title">Error Handling</div>
+      <div class="feat-desc">Comprehensive <code>try/except</code> blocks catch all invalid inputs — the system never crashes on bad data entry.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(0,212,170,.1);">🖥️</div>
+      <div class="feat-title">Tkinter GUI</div>
+      <div class="feat-desc">Beautiful dark-theme GUI with 5 screens — Login, Dashboard, Deposit, Withdraw, and Transaction History with scrollable logs.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══════════════════════════════════════════ -->
+<section class="how-section" id="how">
+  <div class="section-tag">How It Works</div>
+  <h2 class="section-title">Simple 4-Step <span>Flow</span></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Launch Program</h3>
+      <p>Run <code>python banking.py</code> in terminal or VS Code. The welcome screen appears.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Enter PIN</h3>
+      <p>Type your 4-digit PIN (default: 1234). Wrong PIN = instant access denied.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Choose Transaction</h3>
+      <p>Select from Balance, Deposit, Withdraw or Exit using menu options.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Get Results</h3>
+      <p>Every action shows updated balance instantly. Errors are handled gracefully.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TECH STACK ══════════════════════════════════════════════ -->
+<section id="tech">
+  <div class="section-tag">Tech Stack</div>
+  <h2 class="section-title">Built With <span>Pure Python</span></h2>
+  <p class="section-sub">No pip installs needed — everything uses Python's standard library.</p>
+  <div class="tech-grid">
+    <div class="tech-pill">
+      <div class="t-icon">🐍</div>
+      <div class="t-name">Python 3</div>
+      <div class="t-role">Core Language</div>
+    </div>
+    <div class="tech-pill">
+      <div class="t-icon">🖼️</div>
+      <div class="t-name">Tkinter</div>
+      <div class="t-role">GUI Framework</div>
+    </div>
+    <div class="tech-pill">
+      <div class="t-icon">🔑</div>
+      <div class="t-name">getpass</div>
+      <div class="t-role">PIN Security</div>
+    </div>
+    <div class="tech-pill">
+      <div class="t-icon">📅</div>
+      <div class="t-name">datetime</div>
+      <div class="t-role">Timestamps</div>
+    </div>
+    <div class="tech-pill">
+      <div class="t-icon">⚙️</div>
+      <div class="t-name">try/except</div>
+      <div class="t-role">Error Handling</div>
+    </div>
+    <div class="tech-pill">
+      <div class="t-icon">🔁</div>
+      <div class="t-name">while loops</div>
+      <div class="t-role">Control Flow</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LIVE DEMO ══════════════════════════════════════════════ -->
+<section class="demo-section" id="demo">
+  <div style="text-align:center;">
+    <div class="section-tag">Interactive Demo</div>
+    <h2 class="section-title">Try It <span>Right Here</span></h2>
+    <p class="section-sub" style="margin:0 auto;">Experience the banking system in your browser — exactly like the real Python app.</p>
+  </div>
+
+  <div class="demo-container">
+    <div class="demo-topbar">
+      <span>🏦 Priyanshu Banking System</span>
+      <span class="demo-bal" id="demo-bal-display">₹5,000.00</span>
+    </div>
+    <div class="demo-body">
+
+      <!-- LOGIN SCREEN -->
+      <div class="d-screen active" id="scr-login">
+        <div style="text-align:center;margin-bottom:24px;">
+          <div style="font-size:3rem;margin-bottom:8px;">🔐</div>
+          <div style="font-family:&#39;Playfair Display&#39;,serif;color:var(--white);font-size:1.2rem;">Welcome Back</div>
+          <div style="color:var(--muted);font-size:.82rem;margin-top:4px;">Enter your PIN to continue</div>
+        </div>
+        <div class="d-label">4-Digit PIN</div>
+        <input class="d-input" id="demo-pin" type="password" maxlength="4" placeholder="••••" inputmode="numeric">
+        <div class="d-msg" id="login-msg"></div>
+        <button class="d-btn d-btn-gold" onclick="demoLogin()">LOGIN →</button>
+        <div style="text-align:center;margin-top:12px;font-size:.78rem;color:var(--muted);">Hint: PIN is 1234</div>
+      </div>
+
+      <!-- MENU SCREEN -->
+      <div class="d-screen" id="scr-menu">
+        <div class="bal-display">
+          <div class="bd-label">Current Balance</div>
+          <div class="bd-amount" id="menu-bal">₹5,000.00</div>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-btn" onclick="showScreen(&#39;scr-balance&#39;)">
+            <div class="mb-icon">📊</div>
+            <div class="mb-txt">Check Balance</div>
+          </div>
+          <div class="menu-btn" onclick="showScreen(&#39;scr-deposit&#39;)">
+            <div class="mb-icon">💰</div>
+            <div class="mb-txt">Deposit Money</div>
+          </div>
+          <div class="menu-btn" onclick="showScreen(&#39;scr-withdraw&#39;)">
+            <div class="mb-icon">💸</div>
+            <div class="mb-txt">Withdraw Money</div>
+          </div>
+          <div class="menu-btn" onclick="demoLogout()">
+            <div class="mb-icon">🚪</div>
+            <div class="mb-txt">Logout</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BALANCE SCREEN -->
+      <div class="d-screen" id="scr-balance">
+        <div style="text-align:center;padding:10px 0 20px;">
+          <div style="font-size:2.5rem;margin-bottom:12px;">📊</div>
+          <div class="d-label">Your Current Balance</div>
+          <div style="font-family:&#39;Playfair Display&#39;,serif;font-size:2.4rem;color:var(--gold2);margin:10px 0;" id="bal-show">₹5,000.00</div>
+          <div style="font-size:.78rem;color:var(--muted);">Savings Account • PIN Protected</div>
+        </div>
+        <button class="d-btn d-btn-out" onclick="showScreen(&#39;scr-menu&#39;)">← Back to Menu</button>
+      </div>
+
+      <!-- DEPOSIT SCREEN -->
+      <div class="d-screen" id="scr-deposit">
+        <div style="text-align:center;margin-bottom:20px;">
+          <div style="font-size:2rem;">💰</div>
+          <div style="color:var(--white);font-weight:600;margin-top:6px;">Deposit Money</div>
+        </div>
+        <div class="d-label">Enter Amount (₹)</div>
+        <input class="d-input" id="dep-amt" type="number" placeholder="e.g. 1500" min="1">
+        <div class="d-msg" id="dep-msg"></div>
+        <button class="d-btn d-btn-teal" onclick="demoDeposit()">✓ Deposit</button>
+        <button class="d-btn d-btn-out" onclick="showScreen(&#39;scr-menu&#39;)">← Back</button>
+      </div>
+
+      <!-- WITHDRAW SCREEN -->
+      <div class="d-screen" id="scr-withdraw">
+        <div style="text-align:center;margin-bottom:20px;">
+          <div style="font-size:2rem;">💸</div>
+          <div style="color:var(--white);font-weight:600;margin-top:6px;">Withdraw Money</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:3px;">Max: ₹20,000 per transaction</div>
+        </div>
+        <div class="d-label">Enter Amount (₹)</div>
+        <input class="d-input" id="with-amt" type="number" placeholder="e.g. 500" min="1">
+        <div class="d-msg" id="with-msg"></div>
+        <button class="d-btn d-btn-red" onclick="demoWithdraw()">→ Withdraw</button>
+        <button class="d-btn d-btn-out" onclick="showScreen(&#39;scr-menu&#39;)">← Back</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ CODE PREVIEW ══════════════════════════════════════════ -->
+<section class="code-section" id="code">
+  <div class="section-tag">Source Code</div>
+  <h2 class="section-title">Clean, Readable <span>Python Code</span></h2>
+  <div class="code-split">
+    <div class="code-block">
+      <div class="code-header">
+        <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+        <span class="code-file">banking_system.py</span>
+      </div>
+      <div class="code-body">
+<span class="kw">import</span> getpass<br><br>
+<span class="cm"># Initial Data</span><br>
+balance = <span class="nm">5000.00</span><br>
+pin = <span class="st">"1234"</span><br><br>
+<span class="cm"># User Authentication</span><br>
+entered_pin = getpass.<span class="fn">getpass</span>(<span class="st">"Enter PIN: "</span>)<br><br>
+<span class="kw">if</span> entered_pin == pin:<br>
+&nbsp;&nbsp;<span class="fn">print</span>(<span class="st">"Login Successful!"</span>)<br>
+&nbsp;&nbsp;<span class="kw">while</span> <span class="kw">True</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;choice = <span class="fn">input</span>(<span class="st">"Choice (1-4): "</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> choice == <span class="st">'1'</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">print</span>(f<span class="st">"Balance: ₹{balance:.2f}"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">elif</span> choice == <span class="st">'2'</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"Amount: ₹"</span>))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> amount &gt; <span class="nm">0</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;balance += amount<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">elif</span> choice == <span class="st">'3'</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> amount &gt; <span class="nm">20000</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">print</span>(<span class="st">"Limit exceeded!"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">elif</span> choice == <span class="st">'4'</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">break</span><br>
+<span class="kw">else</span>:<br>
+&nbsp;&nbsp;<span class="fn">print</span>(<span class="st">"Invalid PIN!"</span>)
+      </div>
+    </div>
+    <div class="co-info">
+      <h3>Concepts Demonstrated</h3>
+      <p>This project is a complete showcase of fundamental and intermediate Python programming concepts, perfect for academic presentations.</p>
+      <ul class="co-list">
+        <li><span class="ck">✓</span> Conditional Statements (if / elif / else)</li>
+        <li><span class="ck">✓</span> Loops (while True with break)</li>
+        <li><span class="ck">✓</span> Exception Handling (try / except)</li>
+        <li><span class="ck">✓</span> String Formatting (f-strings)</li>
+        <li><span class="ck">✓</span> Standard Library Modules (getpass, tkinter)</li>
+        <li><span class="ck">✓</span> GUI Development with Tkinter</li>
+        <li><span class="ck">✓</span> Input Validation &amp; Error Messages</li>
+        <li><span class="ck">✓</span> Transaction Limit Logic</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Terminal output -->
+  <div class="terminal">
+    <div class="term-header">
+      <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+      <span class="term-title">Terminal Output — Sample Session</span>
+    </div>
+    <div class="term-body">
+      <div><span class="t-gold">══════════════════════════════════════════════════</span></div>
+      <div><span class="t-white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WELCOME TO PRIYANSHU BANKING SYSTEM</span></div>
+      <div><span class="t-gold">══════════════════════════════════════════════════</span></div>
+      <br>
+      <div><span class="t-muted">Enter your 4-digit PIN: </span><span class="t-white">****</span></div>
+      <div><span class="t-green">✓ Login Successful!</span></div>
+      <br>
+      <div><span class="t-white">Choose Transaction:</span></div>
+      <div><span class="t-muted">1. Check Balance &nbsp; 2. Deposit Money</span></div>
+      <div><span class="t-muted">3. Withdraw Money &nbsp; 4. Exit</span></div>
+      <div><span class="t-muted">Enter your choice (1-4): </span><span class="t-gold">1</span></div>
+      <div><span class="t-green">Your current balance is: ₹5000.00</span></div>
+      <br>
+      <div><span class="t-muted">Enter your choice (1-4): </span><span class="t-gold">2</span></div>
+      <div><span class="t-muted">Enter amount to deposit: ₹</span><span class="t-gold">1500</span></div>
+      <div><span class="t-green">₹1500.00 deposited successfully.</span></div>
+      <div><span class="t-green">Updated balance is: ₹6500.00</span></div>
+      <br>
+      <div><span class="t-muted">Enter your choice (1-4): </span><span class="t-gold">3</span></div>
+      <div><span class="t-muted">Enter amount to withdraw: ₹</span><span class="t-gold">30000</span></div>
+      <div><span class="t-red">Transaction limit exceeded! Maximum withdrawal is ₹20000.</span></div>
+      <br>
+      <div><span class="t-muted">Enter your choice (1-4): </span><span class="t-gold">4</span></div>
+      <div><span class="t-green">Thank you for using our banking system. Have a nice day!</span></div>
+      <div><span class="cursor"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══════════════════════════════════════════════════ -->
+<section id="about">
+  <div class="section-tag">About the Project</div>
+  <h2 class="section-title">Project <span>Details</span></h2>
+  <div class="about-split">
+    <div class="about-img">
+      <div class="about-img-box">
+        <span class="big-icon">🏦</span>
+        <div style="font-family:&#39;Playfair Display&#39;,serif;font-size:1.3rem;color:var(--white);">Priyanshu Banking System</div>
+        <div style="color:var(--muted);font-size:.85rem;margin-top:6px;">Console + GUI Edition</div>
+        <div class="about-tags">
+          <span class="tag">Python 3</span>
+          <span class="tag">Tkinter</span>
+          <span class="tag">getpass</span>
+          <span class="tag">datetime</span>
+          <span class="tag">Error Handling</span>
+          <span class="tag">Loops</span>
+          <span class="tag">Conditionals</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-info">
+      <h3>Project Overview</h3>
+      <p>
+        This banking system was built as a Python programming project to demonstrate core concepts including conditional statements, loops, exception handling, and GUI development with Tkinter.
+      </p>
+      <div class="info-row">
+        <span class="ir-icon">👨‍💻</span>
+        <div class="ir-text">
+          <strong>Developer</strong>
+          Priyanshu — Python Developer &amp; Student
+        </div>
+      </div>
+      <div class="info-row">
+        <span class="ir-icon">📚</span>
+        <div class="ir-text">
+          <strong>Project Type</strong>
+          Academic Python Programming Project — Console &amp; GUI Application
+        </div>
+      </div>
+      <div class="info-row">
+        <span class="ir-icon">🛠️</span>
+        <div class="ir-text">
+          <strong>Tools Used</strong>
+          Python 3, VS Code, Tkinter (Standard Library only — no pip required)
+        </div>
+      </div>
+      <div class="info-row">
+        <span class="ir-icon">🎯</span>
+        <div class="ir-text">
+          <strong>Learning Outcomes</strong>
+          File-free banking logic, input validation, GUI layout design, user-friendly error messages
+        </div>
+      </div>
+      <div class="info-row">
+        <span class="ir-icon">🚀</span>
+        <div class="ir-text">
+          <strong>How to Run</strong>
+          Download <code>.py</code> file → open in VS Code → press Run (F5)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-text">🏦 <em>Priyanshu</em> Banking System</div>
+      <p>A Python-based banking application demonstrating console and GUI programming. Built for academic projects and Python learning.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Project Files</h4>
+      <ul>
+        <li><a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#">banking_system.py</a></li>
+        <li><a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#">banking_gui.py</a></li>
+        <li><a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#">README.md</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Features</h4>
+      <ul>
+        <li><a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#features">Authentication</a></li>
+        <li><a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#features">Balance Check</a></li>
+        <li><a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#features">Deposit &amp; Withdraw</a></li>
+        <li><a href="file:///Users/priyanshujha/Downloads/priyanshu_banking.html#features">Error Handling</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Priyanshu Banking System. Python Project.</p>
+    <p class="made">Made with 🐍 Python &amp; ❤️ by Priyanshu</p>
+  </div>
+</footer>
+
+<!-- ══ DEMO LOGIC ══════════════════════════════════════════════ -->
+<script>
+  let demoBalance = 5000.00;
+
+  function fmt(n){ return '₹' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,','); }
+
+  function updateBalDisplays(){
+    document.getElementById('demo-bal-display').textContent = fmt(demoBalance);
+    document.getElementById('menu-bal').textContent = fmt(demoBalance);
+    document.getElementById('bal-show').textContent = fmt(demoBalance);
+  }
+
+  function showScreen(id){
+    document.querySelectorAll('.d-screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    // clear messages
+    ['login-msg','dep-msg','with-msg'].forEach(m=>{
+      const el=document.getElementById(m);
+      if(el){ el.className='d-msg'; el.textContent=''; }
+    });
+    updateBalDisplays();
+  }
+
+  function showMsg(id, text, type){
+    const el=document.getElementById(id);
+    el.textContent=text; el.className='d-msg '+type;
+  }
+
+  function demoLogin(){
+    const pin=document.getElementById('demo-pin').value;
+    if(pin==='1234'){
+      document.getElementById('demo-pin').value='';
+      showScreen('scr-menu');
+    } else {
+      showMsg('login-msg','❌ Invalid PIN! Access Denied.','error');
+      document.getElementById('demo-pin').value='';
+    }
+  }
+
+  function demoDeposit(){
+    const v=parseFloat(document.getElementById('dep-amt').value);
+    if(isNaN(v)||v<=0){ showMsg('dep-msg','❌ Amount must be greater than zero.','error'); return; }
+    demoBalance+=v;
+    document.getElementById('dep-amt').value='';
+    showMsg('dep-msg',`✅ ${fmt(v)} deposited! New balance: ${fmt(demoBalance)}`,'success');
+    updateBalDisplays();
+  }
+
+  function demoWithdraw(){
+    const v=parseFloat(document.getElementById('with-amt').value);
+    if(isNaN(v)||v<=0){ showMsg('with-msg','❌ Amount must be greater than zero.','error'); return; }
+    if(v>demoBalance){ showMsg('with-msg','❌ Insufficient Balance!','error'); return; }
+    if(v>20000){ showMsg('with-msg','❌ Transaction limit exceeded! Max ₹20,000.','error'); return; }
+    demoBalance-=v;
+    document.getElementById('with-amt').value='';
+    showMsg('with-msg',`✅ ${fmt(v)} withdrawn! Remaining: ${fmt(demoBalance)}`,'success');
+    updateBalDisplays();
+  }
+
+  function demoLogout(){
+    demoBalance=5000.00;
+    updateBalDisplays();
+    showScreen('scr-login');
+  }
+
+  // Enter key support
+  document.getElementById('demo-pin').addEventListener('keydown',e=>{ if(e.key==='Enter') demoLogin(); });
+  document.getElementById('dep-amt') .addEventListener('keydown',e=>{ if(e.key==='Enter') demoDeposit(); });
+  document.getElementById('with-amt').addEventListener('keydown',e=>{ if(e.key==='Enter') demoWithdraw(); });
+
+  // Smooth nav highlight
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',()=>{
+    const pos=window.scrollY+100;
+    document.querySelectorAll('section,[id]').forEach(s=>{
+      if(s.id && pos>=s.offsetTop && pos<s.offsetTop+s.offsetHeight){
+        navLinks.forEach(a=>{ a.style.color = a.getAttribute('href')==='#'+s.id ? 'var(--gold2)' : ''; });
+      }
+    });
+  });
+</script>
+
+
+</body></html>
